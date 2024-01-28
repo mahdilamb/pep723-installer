@@ -59,9 +59,9 @@ const install = async (metadata: Metadata) => {
 		const [executable, version] = await pythonInterpreterAndVersion();
 		if (!semver.satisfies(version, pythonVersionSpec)) {
 			vscode.window.showErrorMessage(`The current script requires python ${pythonVersionSpec}`);
+			return;
 		}
 		let dependencies;
-
 		if (dependencies = metadata.dependencies) {
 			(vscode.window.activeTerminal || vscode.window.createTerminal()).sendText(`${executable} -m pip install ${dependencies.map(dep => `"${dep}"`).join(' ')}`);
 
